@@ -1,0 +1,4 @@
+interface:
+  display_name: "Academic Reference Matcher"
+  short_description: "Find and verify scholarly references"
+  default_prompt: "Use $academic-reference-matcher to find and verify scholarly references for this paragraph."
