@@ -96,3 +96,19 @@ Could not verify:
   Reason: ...
   Next step: ...
 ```
+
+## Paywalled Candidate Handling
+
+```text
+Use $academic-reference-matcher. Some candidate papers may be paywalled. Use visible title, keyword, DOI, abstract, and publisher metadata for discovery, but do not treat metadata-only candidates as strong support.
+
+[paste claim or paragraph]
+```
+
+Expected behavior:
+
+- keep promising paywalled papers as candidates when metadata indicates relevance;
+- search for legal OA versions, preprints, accepted manuscripts, repository copies, or user-provided library records;
+- mark `Discovery-only` when only title/keywords/metadata are visible;
+- use `Abstract-supported` or `Snippet-supported` only when visible text directly supports the claim;
+- never imply full-text verification when full text was not available.

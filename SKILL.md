@@ -56,12 +56,14 @@ If the user asks for "thorough", "systematic", "综述", "全面", "PRISMA", "me
    - Search title/abstract/DOI sources before general web search when available.
    - Load `references/search-sources.md` when choosing sources or building queries.
    - Load `references/source-routing.md` for domain-specific routing or Deep/Audit work.
+   - Load `references/paywall-aware-access.md` when relevant papers are paywalled or only metadata is visible.
 
 4. Verify relevance.
    - Read enough of the title, abstract, metadata, snippets, and available full text to judge support.
    - Score each candidate using `references/verification-rubric.md` when the task has multiple candidates or high accuracy requirements.
    - Prefer papers that directly support the claim over papers that merely share keywords.
    - Require title, year, stable URL or DOI, and a support rationale before treating a match as usable.
+   - Treat title, keywords, and metadata as discovery signals, not strong support, unless the claim is purely bibliographic.
 
 5. Format and insert citations.
    - Use the user's requested style. Load `references/output-formats.md` for output contracts and style notes.
@@ -90,6 +92,13 @@ For High or Medium confidence matches, include:
 
 If any of these are missing, lower confidence or add a note.
 
+Evidence tiers:
+
+- Discovery-only: title, keywords, index metadata, citation counts, or related-work lists suggest relevance but do not establish support.
+- Abstract-supported: the abstract directly supports the claim; usually Medium unless the claim is broad and low-risk.
+- Fulltext-supported: full text, user-provided PDF, official guideline, dataset record, or publisher page directly supports the claim; eligible for High.
+- Bibliographic-only: metadata is enough only for claims about existence, authorship, year, venue, DOI, or publication status.
+
 ## Output
 
 For small requests, answer in prose with inserted citations and a reference list.
@@ -114,6 +123,7 @@ For Deep or Audit tasks, include segment IDs in the table and a search audit sum
 - This skill has no built-in search engine, paid database access, or citation parser.
 - Search quality depends on the host agent's available tools and the user's provided corpus.
 - Paywalls, missing abstracts, incomplete metadata, rate limits, and inaccessible PDFs can weaken verification.
+- Paywalled records can still be useful for discovery and candidate ranking, but metadata-only visibility limits support confidence.
 - Literature coverage is not exhaustive unless the user provides a bounded corpus or reproducible database search strategy.
 - Final journal-specific formatting and high-stakes manuscript checks may still need human review.
 

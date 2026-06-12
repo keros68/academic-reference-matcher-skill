@@ -43,4 +43,6 @@ For Deep or Audit tasks, do not stop at the first plausible hit. Vary at least o
 
 ## Access Limits
 
-If a full text is paywalled, use metadata, abstract, publisher snippets, PubMed records, accepted manuscript copies, or user-provided PDFs. State that the full text was not checked when it matters.
+If a full text is paywalled, use metadata, abstract, keywords, publisher snippets, PubMed records, accepted manuscript copies, or user-provided PDFs. State that the full text was not checked when it matters.
+
+Paywalled records are still useful for discovery: titles, keywords, author lists, journal scope, DOI metadata, and citation graph context can identify candidate papers. They are not enough for strong support unless the claim is purely bibliographic.

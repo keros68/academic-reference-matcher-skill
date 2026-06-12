@@ -30,3 +30,5 @@ For each accepted reference, write one sentence explaining why it supports the c
 - Reject: score 1, contradicted, irrelevant, retracted, or unverifiable.
 
 If only metadata or snippets were checked, do not use High unless the claim is purely bibliographic or definitional and the metadata is sufficient.
+
+Title, keywords, citation counts, and index metadata can justify keeping a paper as a candidate. They do not justify claiming support for empirical, causal, comparative, clinical, or methodological claims.

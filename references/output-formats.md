@@ -8,6 +8,8 @@ Follow the user's requested style. If no style is requested, use author-year inl
 |---|---|---|---|---|---|---|
 | Short claim text | Add/Verify/Replace | Author et al., year, title, DOI/URL | One-sentence support rationale | Abstract/full text/metadata/snippet/PDF | High/Medium/Low | Access limits or caveats |
 
+Use `Discovery-only` in the Notes column when a paywalled paper looks relevant from title, keywords, or metadata but has not been verified through abstract, official snippet, full text, user PDF, or another adequate source.
+
 ## Reference Fields
 
 Capture these fields when available:
