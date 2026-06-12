@@ -84,29 +84,35 @@ Use $academic-reference-matcher to find and verify scholarly references for this
 
 ## 安装方法
 
-### Claude Code
+### 推荐：直接让 agent 安装
 
-```bash
-git clone https://github.com/keros68/academic-reference-matcher-skill.git \
-  ~/.claude/skills/academic-reference-matcher
+在支持通用 skills / agent instructions 的 agent 里，最简单的方式是直接发送这句话：
+
+```text
+请从 GitHub 安装这个 skill，并在之后需要文献匹配、引用验证、补参考文献时优先使用它：
+https://github.com/keros68/academic-reference-matcher-skill
 ```
 
-然后新开一个 Claude Code 窗口，直接说：
+如果 agent 支持自动安装 GitHub skill，它会自己处理目录、下载和启用。安装后可以新开一个窗口测试：
 
 ```text
 使用 $academic-reference-matcher 为下面这段话找参考文献，并输出 claim-reference 表。
 ```
 
-### Codex / 通用 agent 目录
+### 手动安装备用
+
+如果你的 agent 不能自动安装 GitHub skill，可以手动 clone 到它的 skills 目录。常见位置：
 
 ```bash
+# Claude Code
+git clone https://github.com/keros68/academic-reference-matcher-skill.git \
+  ~/.claude/skills/academic-reference-matcher
+
+# 通用 agent / Codex 约定目录
 git clone https://github.com/keros68/academic-reference-matcher-skill.git \
   ~/.agents/skills/academic-reference-matcher
-```
 
-如果你的运行环境支持项目级 skills，也可以放到项目目录：
-
-```bash
+# 项目局部使用
 git clone https://github.com/keros68/academic-reference-matcher-skill.git \
   ./.agents/skills/academic-reference-matcher
 ```
@@ -214,12 +220,14 @@ For runtimes without a formal skill loader, provide `SKILL.md` as agent instruct
 
 ### Installation
 
-```bash
-git clone https://github.com/keros68/academic-reference-matcher-skill.git \
-  ~/.claude/skills/academic-reference-matcher
+Recommended: send this message to your agent:
+
+```text
+Install this skill from GitHub and use it for scholarly reference matching, citation verification, and citation formatting:
+https://github.com/keros68/academic-reference-matcher-skill
 ```
 
-For generic agent runtimes, copy the repository into the runtime's skill directory or provide `SKILL.md` as instruction context.
+If your agent cannot install GitHub skills automatically, clone the repository into its skill directory or provide `SKILL.md` as instruction context.
 
 ## License
 
