@@ -21,3 +21,12 @@ Use this rubric when ranking multiple candidate references or when the task is a
 ## Evidence Note
 
 For each accepted reference, write one sentence explaining why it supports the claim. If the evidence is only partial, say exactly what is missing.
+
+## Confidence Labels
+
+- High: score 5, stable bibliographic record available, and support is direct.
+- Medium: score 4, stable record available, but scope or wording differs slightly.
+- Low: score 2-3, useful for background only; do not present as strong support.
+- Reject: score 1, contradicted, irrelevant, retracted, or unverifiable.
+
+If only metadata or snippets were checked, do not use High unless the claim is purely bibliographic or definitional and the metadata is sufficient.

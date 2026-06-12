@@ -16,6 +16,17 @@ Find and verify scholarly references for user-provided academic text. Prefer the
 - Use primary literature, systematic reviews, standards, datasets, or official documentation before blogs and secondary summaries.
 - Preserve the user's requested citation style and language. If none is requested, default to author-year inline citations plus a compact reference list.
 - If web/database access is unavailable, ask for a bibliography, search export, DOI list, PDF set, Zotero library, or pasted search results.
+- Disclose access limits, weak matches, and unverified claims instead of filling gaps with plausible-looking references.
+
+## Task Modes
+
+Choose the mode from the user's request:
+
+- Add: find citations for uncited claims.
+- Verify: check whether existing citations support the claims they are attached to.
+- Replace: find stronger or more accurate references for weak, wrong, outdated, retracted, or inaccessible citations.
+- Format: convert known references to the requested style without doing new relevance matching.
+- Extract: identify citation-worthy claims without searching yet.
 
 ## Workflow
 
@@ -36,6 +47,7 @@ Find and verify scholarly references for user-provided academic text. Prefer the
    - Read enough of the title, abstract, metadata, snippets, and available full text to judge support.
    - Score each candidate using `references/verification-rubric.md` when the task has multiple candidates or high accuracy requirements.
    - Prefer papers that directly support the claim over papers that merely share keywords.
+   - Require title, year, stable URL or DOI, and a support rationale before treating a match as usable.
 
 5. Format and insert citations.
    - Use the user's requested style. Load `references/output-formats.md` for output contracts and style notes.
@@ -52,14 +64,25 @@ Use at least two independent scholarly sources for important claims when possibl
 
 For each selected reference, capture enough provenance to let the user audit it: title, authors, year, venue, DOI or stable URL, and a one-sentence support rationale.
 
+## Evidence Minimums
+
+For High or Medium confidence matches, include:
+
+- bibliographic identity: title, authors, year, venue;
+- stable locator: DOI, PMID, arXiv ID, accession, standard number, or stable URL;
+- evidence basis: abstract, full text, metadata, snippet, user-provided PDF, or official record;
+- support rationale: one sentence tying the reference to the exact claim.
+
+If any of these are missing, lower confidence or add a note.
+
 ## Output
 
 For small requests, answer in prose with inserted citations and a reference list.
 
 For multi-claim matching, use this compact table:
 
-| Claim | Best reference | Support | Confidence | Notes |
-|---|---|---|---|---|
+| Claim | Mode | Best reference | Support | Evidence basis | Confidence | Notes |
+|---|---|---|---|---|---|---|
 
 Use confidence labels:
 
@@ -69,6 +92,14 @@ Use confidence labels:
 
 End with a "Could not verify" section for claims with no reliable match.
 
+## Limits
+
+- This skill has no built-in search engine, paid database access, or citation parser.
+- Search quality depends on the host agent's available tools and the user's provided corpus.
+- Paywalls, missing abstracts, incomplete metadata, rate limits, and inaccessible PDFs can weaken verification.
+- Literature coverage is not exhaustive unless the user provides a bounded corpus or reproducible database search strategy.
+- Final journal-specific formatting and high-stakes manuscript checks may still need human review.
+
 ## Common Mistakes
 
 - Do not treat high citation count as relevance.
@@ -76,3 +107,5 @@ End with a "Could not verify" section for claims with no reliable match.
 - Do not use a paper just because its abstract contains the same terms.
 - Do not replace a user's citation unless the current reference is wrong, weak, retracted, inaccessible, or outside the requested scope.
 - Do not hide missing access. Say what was checked and what could not be opened.
+- Do not rely on unofficial Google Scholar scraping or CAPTCHA workarounds; use stable scholarly records instead.
+- Do not claim exhaustive coverage unless the user provided a bounded corpus or a reproducible database search strategy.

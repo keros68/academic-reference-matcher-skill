@@ -4,9 +4,9 @@ Follow the user's requested style. If no style is requested, use author-year inl
 
 ## Multi-Claim Table
 
-| Claim | Best reference | Support | Confidence | Notes |
-|---|---|---|---|---|
-| Short claim text | Author et al., year, title, DOI/URL | One-sentence support rationale | High/Medium/Low | Access limits or caveats |
+| Claim | Mode | Best reference | Support | Evidence basis | Confidence | Notes |
+|---|---|---|---|---|---|---|
+| Short claim text | Add/Verify/Replace | Author et al., year, title, DOI/URL | One-sentence support rationale | Abstract/full text/metadata/snippet/PDF | High/Medium/Low | Access limits or caveats |
 
 ## Reference Fields
 
@@ -35,6 +35,21 @@ Use this section when no reliable match is found:
 ```text
 Could not verify:
 - Claim: ...
-  Checked: source/query summary
+  Checked: source and query summary
+  Best candidates rejected: title/year/why rejected
   Reason: no direct scholarly support found / access unavailable / candidates only weakly related
+  Next step: ask user for bibliography/PDF/corpus or revise the claim
+```
+
+## Verification Summary
+
+For larger tasks, end with:
+
+```text
+Checked sources: ...
+Queries used: ...
+Accepted references: N
+Weak or partial matches: N
+Unverified claims: N
+Access limits: ...
 ```

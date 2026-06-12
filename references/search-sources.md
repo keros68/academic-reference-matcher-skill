@@ -10,6 +10,8 @@ Use the agent's available tools first. These notes help choose sources and queri
 4. Official sources: standards bodies, government agencies, clinical guidelines, protocol registries, dataset repositories.
 5. General web search: use only to discover stable scholarly records or official reports.
 
+Do not rely on unofficial Google Scholar scraping, CAPTCHA bypasses, or brittle search-result parsing. If Google Scholar-like results are available through the user's normal browsing context, use them only as discovery hints and verify against stable records such as DOI, PubMed, arXiv, publisher, or repository pages.
+
 ## Query Patterns
 
 For one claim, try 2-4 query shapes:
@@ -19,6 +21,7 @@ For one claim, try 2-4 query shapes:
 - DOI/title search when checking an existing citation.
 - Author-year search when the user gives partial citation text.
 - Domain-limited search for official records, such as `site:pubmed.ncbi.nlm.nih.gov`, `site:doi.org`, `site:arxiv.org`, or a publisher domain.
+- Chinese-English paired search when the source text is Chinese: search the original Chinese terms, translated English technical terms, and common abbreviations.
 
 ## Source Fit
 
@@ -27,6 +30,14 @@ For one claim, try 2-4 query shapes:
 - Physics/math: arXiv, ADS when available, publisher pages.
 - Social science: Crossref, OpenAlex, SSRN when appropriate, journals and reports.
 - Standards or regulation: official standards bodies or government pages first.
+
+## Chinese Academic Text
+
+- Preserve the user's Chinese terminology when extracting claims.
+- Search both Chinese and English keywords for technical terms, diseases, materials, methods, and institutions.
+- Prefer GB/T 7714 when the user asks for Chinese thesis, Chinese journal, or Chinese grant-style references and does not specify another style.
+- Do not force Chinese summary claims into narrower English claims during translation; verify the original meaning.
+- For China-specific policy, standards, geography, or datasets, prioritize official Chinese sources, standards records, and stable repository pages.
 
 ## Access Limits
 
