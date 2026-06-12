@@ -90,6 +90,14 @@ git clone https://github.com/keros68/academic-reference-matcher-skill.git \
 
 检索质量取决于宿主 agent 的联网、数据库、浏览器、PDF 和本地文献库能力。高风险投稿、系统综述和最终参考文献格式仍建议人工复核。
 
+## Attribution and Redistribution
+
+This project is the original Academic Reference Matcher Skill by keros68:
+
+https://github.com/keros68/academic-reference-matcher-skill
+
+The project is released under the MIT License. Redistribution, forks, modified versions, and repackaged copies must preserve the copyright notice, license text, and `NOTICE.md`. Please do not present modified copies as the original project or imply endorsement by the original author.
+
 ## English
 
 Academic Reference Matcher is a portable agent skill for scholarly reference matching. It helps an agent identify citation-worthy claims, search candidate papers, verify whether a reference supports the claim, and output auditable citations.
@@ -111,4 +119,4 @@ Use $academic-reference-matcher to find and verify scholarly references for this
 
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
