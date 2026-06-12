@@ -2,6 +2,70 @@
 
 Follow the user's requested style. If no style is requested, use author-year inline citations and a compact reference list.
 
+## Copy-Ready File Bundle
+
+When the runtime can write files, create file outputs for Standard, Deep, or Audit tasks if the user asks for copy/paste, export, a citation package, or explicit citation formats.
+
+Default file:
+
+- `reference-match-report.md`
+
+Optional files when requested:
+
+- `references-apa.md`
+- `references-gbt7714.md`
+- `references-vancouver.md`
+- `references-ieee.md`
+- `references.bib`
+- `references.ris`
+
+Keep chat output short: list the created files, summarize the strongest matches, and mention unverified claims or access limits. Do not paste the whole report in chat when the file exists.
+
+Use this `reference-match-report.md` order:
+
+````markdown
+# Reference Match Report
+
+## Citation Style
+
+Requested style: ...
+
+## Copy-Ready Cited Text
+
+...
+
+## Claim-Reference Table
+
+| Segment | Claim | Accepted reference | Evidence basis | Confidence | Notes |
+|---|---|---|---|---|---|
+
+## References
+
+### APA
+
+...
+
+### GB/T 7714
+
+...
+
+### BibTeX
+
+```bibtex
+...
+```
+
+## Could Not Verify
+
+...
+
+## Search Audit
+
+...
+````
+
+Omit unused style sections unless the user asked for multiple styles. Put BibTeX/RIS in separate files when there are more than 5 references or when the user asks for manager import.
+
 ## Multi-Claim Table
 
 | Claim | Mode | Best reference | Support | Evidence basis | Confidence | Notes |

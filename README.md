@@ -13,7 +13,7 @@
 - 检查已有引用是否真的支撑原文 claim。
 - 替换弱引用、错引用、过时引用或撤稿文献。
 - 输出 APA、GB/T 7714、Vancouver、IEEE、BibTeX、RIS 等格式。
-- 为长文本生成 claim-reference 表和简要检索记录。
+- 为长文本生成 copy-ready Markdown 报告、claim-reference 表和简要检索记录。
 
 ## 它做什么
 
@@ -71,6 +71,8 @@ git clone https://github.com/keros68/academic-reference-matcher-skill.git \
 
 常见输出包括：
 
+- `reference-match-report.md` 引用匹配报告；
+- `references.bib` / `references.ris` / 不同引用格式的参考文献文件；
 - claim-reference 对照表；
 - 推荐引用和格式化参考文献；
 - 支撑强度与证据来源说明；

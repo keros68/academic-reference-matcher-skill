@@ -1,6 +1,6 @@
 ---
 name: academic-reference-matcher
-description: Use when finding, adding, verifying, replacing, or formatting scholarly references for academic claims, paragraphs, manuscripts, literature reviews, rebuttals, grant text, or citation lists; use when checking whether cited papers support a claim, identifying claims that need citations, or producing APA, GB/T, Vancouver, IEEE, BibTeX, RIS, or DOI-linked references.
+description: Use when finding, adding, verifying, replacing, or formatting scholarly references for academic claims, paragraphs, manuscripts, literature reviews, rebuttals, grant text, or citation lists; use when checking whether cited papers support a claim, identifying claims that need citations, creating copy-ready citation reports/files, or producing APA, GB/T, Vancouver, IEEE, BibTeX, RIS, or DOI-linked references.
 ---
 
 # Academic Reference Matcher
@@ -15,6 +15,7 @@ Find and verify scholarly references for user-provided academic text. Prefer the
 - Separate "candidate reference found" from "reference supports the claim".
 - Use primary literature, systematic reviews, standards, datasets, or official documentation before blogs and secondary summaries.
 - Preserve the user's requested citation style and language. If none is requested, default to author-year inline citations plus a compact reference list.
+- Prefer copy-ready files for Standard+ tasks when the runtime can write files, especially if the user asks for copying, exporting, or multiple citation styles.
 - If web/database access is unavailable, ask for a bibliography, search export, DOI list, PDF set, Zotero library, or pasted search results.
 - Disclose access limits, weak matches, and unverified claims instead of filling gaps with plausible-looking references.
 
@@ -69,6 +70,7 @@ If the user asks for "thorough", "systematic", "综述", "全面", "PRISMA", "me
    - Use the user's requested style. Load `references/output-formats.md` for output contracts and style notes.
    - Keep citations adjacent to the claims they support.
    - Include uncertainty notes for weak matches instead of silently overstating confidence.
+   - Create a copy-ready Markdown report when the user asks for a file, export, citation package, or easy copy/paste output.
    - For Standard+ tasks, include a compact search audit. Load `references/search-audit.md`.
 
 ## Search Strategy
@@ -102,6 +104,14 @@ Evidence tiers:
 ## Output
 
 For small requests, answer in prose with inserted citations and a reference list.
+
+For Standard+ tasks, or whenever the user asks for "文件", "复制", "导出", "copy", "paste", "BibTeX", "RIS", "GB/T", or multiple citation styles, create file outputs when possible:
+
+- `reference-match-report.md`: copy-ready main report with cited revision, claim-reference table, references, caveats, and search audit.
+- `references-apa.md`, `references-gbt7714.md`, `references-vancouver.md`, or `references-ieee.md`: style-specific reference lists when requested.
+- `references.bib` or `references.ris`: machine-readable entries when requested and enough metadata is verified.
+
+In chat, return a short summary plus file paths. Do not duplicate the full report in chat unless files cannot be created.
 
 For multi-claim matching, use this compact table:
 

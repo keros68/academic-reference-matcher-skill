@@ -47,6 +47,21 @@ Expected behavior:
 - use GB/T 7714 unless the user asks for another style;
 - explain weak or unverified matches in Chinese.
 
+## Copy-Ready File Output
+
+```text
+使用 $academic-reference-matcher。请为下面段落跑 standard depth，生成方便复制的 Markdown 文件，并同时输出 APA、GB/T 7714 和 BibTeX。聊天里只给文件路径、简短摘要和无法验证的 claim。
+
+[paste paragraph]
+```
+
+Expected behavior:
+
+- create `reference-match-report.md` when file writing is available;
+- include copy-ready cited text, claim-reference table, references, caveats, and compact search audit;
+- create separate `references.bib` or style-specific reference files when requested;
+- keep the chat response short instead of pasting the entire report.
+
 ## Deep Search With Segment IDs
 
 ```text
