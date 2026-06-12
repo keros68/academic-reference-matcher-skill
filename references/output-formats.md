@@ -46,6 +46,7 @@ Could not verify:
 For larger tasks, end with:
 
 ```text
+Search depth: Quick/Standard/Deep/Audit
 Checked sources: ...
 Queries used: ...
 Accepted references: N
@@ -53,3 +54,8 @@ Weak or partial matches: N
 Unverified claims: N
 Access limits: ...
 ```
+
+For Deep or Audit tasks, include segment IDs:
+
+| Segment | Claim | Query families | Accepted reference | Evidence basis | Confidence | Notes |
+|---|---|---|---|---|---|---|

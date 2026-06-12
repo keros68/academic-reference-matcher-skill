@@ -23,6 +23,8 @@ For one claim, try 2-4 query shapes:
 - Domain-limited search for official records, such as `site:pubmed.ncbi.nlm.nih.gov`, `site:doi.org`, `site:arxiv.org`, or a publisher domain.
 - Chinese-English paired search when the source text is Chinese: search the original Chinese terms, translated English technical terms, and common abbreviations.
 
+For Deep or Audit tasks, do not stop at the first plausible hit. Vary at least one of: synonym set, source database, field qualifier, year range, or study-type term.
+
 ## Source Fit
 
 - Biomedical claims: PubMed, Europe PMC, clinical guidelines, trial registries.

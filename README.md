@@ -5,8 +5,12 @@ A portable agent skill for finding, verifying, replacing, and formatting scholar
 The skill is intentionally tool-agnostic: it expects the host agent to use whatever web, browser, academic search, citation, PDF, or local-library tools it already has. The skill supplies the workflow and quality bar:
 
 - identify citation-worthy claims;
+- assign stable segment IDs for multi-claim text;
+- plan claim-specific queries instead of using one broad query for everything;
+- route searches by field, source type, and evidence need;
 - search scholarly sources instead of general summaries;
 - verify whether a candidate paper actually supports the claim;
+- produce a compact search audit for reproducibility;
 - format results as inline citations, reference lists, BibTeX/RIS, or claim-reference tables;
 - avoid invented citations and clearly mark unverified claims.
 - disclose weak matches, paywall limits, and search gaps.
@@ -15,13 +19,24 @@ The skill is intentionally tool-agnostic: it expects the host agent to use whate
 
 Academic Reference Matcher 是一个通用的智能体技能，用于为学术文本查找、验证、替换和格式化参考文献。它不绑定特定平台或搜索 API，而是让宿主智能体使用自身已有的联网、浏览器、学术检索、PDF 或本地文献库能力。
 
-这个 skill 重点解决五件事：
+这个 skill 重点解决这些问题：
 
 - 识别段落中真正需要引用支撑的学术论断；
+- 为多 claim 文本建立稳定编号，方便逐句映射文献；
+- 针对每个 claim 设计检索式，而不是只用一个宽泛关键词；
+- 按学科、证据类型和来源可靠性选择检索源；
 - 优先检索论文、DOI、预印本、官方指南、数据集等可靠来源；
 - 判断候选文献是否真的支持原文 claim，而不是只匹配关键词；
+- 输出简洁的检索记录，说明查了哪里、怎么查、为什么采用或拒绝候选文献；
 - 按 APA、GB/T 7714、Vancouver、IEEE、BibTeX、RIS 等格式输出引用，并标明无法验证的内容。
 - 诚实说明弱匹配、付费墙、检索覆盖不足等限制。
+
+## Search depth
+
+- `quick` - a few claims, fast support check, usually 3-5 strong references.
+- `standard` - default for paragraphs or short sections, with claim-reference mapping.
+- `deep` - long sections, review background, disputed topics, or broader coverage.
+- `audit` - systematic-review preparation or high-stakes work requiring a reproducible search log.
 
 ## Task modes
 
@@ -54,6 +69,7 @@ See `examples/example-requests.md` for prompt patterns covering:
 - adding references to an English paragraph;
 - checking whether existing citations support a claim;
 - finding GB/T 7714 references for Chinese academic text;
+- planning deeper searches with segment IDs and source routing;
 - reporting no reliable match without inventing citations.
 
 ## Known limitations / 已知局限
@@ -76,6 +92,9 @@ See `examples/example-requests.md` for prompt patterns covering:
 
 - `SKILL.md` - main skill instructions and trigger description
 - `references/search-sources.md` - source selection and query patterns
+- `references/query-planning.md` - claim segmentation and query construction
+- `references/source-routing.md` - field-specific source routing
+- `references/search-audit.md` - reproducible search log template
 - `references/verification-rubric.md` - relevance scoring rubric
 - `references/output-formats.md` - output contracts and citation style notes
 - `examples/example-requests.md` - practical request and output patterns

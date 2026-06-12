@@ -47,6 +47,37 @@ Expected behavior:
 - use GB/T 7714 unless the user asks for another style;
 - explain weak or unverified matches in Chinese.
 
+## Deep Search With Segment IDs
+
+```text
+Use $academic-reference-matcher in deep mode. Split this introduction into stable segment IDs, plan separate query families for each citation-worthy claim, search at least two scholarly routes where possible, and include a compact search audit.
+
+[paste long introduction or subsection]
+```
+
+Expected behavior:
+
+- assign `S001`, `S002`, ... to citable claims;
+- label claim types before searching;
+- vary query families instead of reusing one broad query;
+- route sources by field and evidence need;
+- report accepted, weak, rejected, and unverified candidates.
+
+## Audit-Oriented Search
+
+```text
+Use $academic-reference-matcher in audit mode. I am preparing a systematic review background section. Create a reproducible search log, explain source limits, and do not claim exhaustive coverage unless the search strategy is bounded.
+
+[paste topic, inclusion scope, or manuscript section]
+```
+
+Expected behavior:
+
+- state scope, date range, databases/routes, and search limits;
+- produce a claim-reference table with evidence basis;
+- include rejected candidates and stopping reasons;
+- distinguish literature discovery from citation support.
+
 ## No Reliable Match
 
 ```text

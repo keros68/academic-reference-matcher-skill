@@ -28,20 +28,34 @@ Choose the mode from the user's request:
 - Format: convert known references to the requested style without doing new relevance matching.
 - Extract: identify citation-worthy claims without searching yet.
 
+## Search Depth
+
+Choose the lightest depth that satisfies the user's intent:
+
+- Quick: 1-3 claims, 3-5 strong references, fast support check.
+- Standard: paragraph or short section, claim table, two or more scholarly sources when possible.
+- Deep: long section, review background, or disputed topic; use segment IDs, source routing, and search audit.
+- Audit: systematic-review preparation, PRISMA-like transparency, or high-stakes manuscript work; require a reproducible search log and explicit limits.
+
+If the user asks for "thorough", "systematic", "综述", "全面", "PRISMA", "meta-analysis", or "Cochrane", use Deep or Audit. For Audit, state the scope and limits before doing the work.
+
 ## Workflow
 
 1. Scope the task.
-   - Identify the field, date sensitivity, citation style, language, and whether the user wants new citations, verification of existing citations, or both.
+   - Identify the field, date sensitivity, citation style, language, task mode, and search depth.
    - For long documents, process by section and keep citation numbering stable.
 
 2. Extract citation-worthy claims.
    - Mark empirical, causal, comparative, quantitative, methodological, historical, or definitional claims.
+   - Assign stable segment IDs (`S001`, `S002`, ...) for multi-claim or long-text tasks.
    - Do not cite generic transitions, obvious background, or the user's own stated contribution unless requested.
+   - Load `references/query-planning.md` when turning claims into search queries.
 
 3. Search broadly, then narrowly.
    - Start with exact phrases and key technical terms from the claim.
    - Search title/abstract/DOI sources before general web search when available.
    - Load `references/search-sources.md` when choosing sources or building queries.
+   - Load `references/source-routing.md` for domain-specific routing or Deep/Audit work.
 
 4. Verify relevance.
    - Read enough of the title, abstract, metadata, snippets, and available full text to judge support.
@@ -53,6 +67,7 @@ Choose the mode from the user's request:
    - Use the user's requested style. Load `references/output-formats.md` for output contracts and style notes.
    - Keep citations adjacent to the claims they support.
    - Include uncertainty notes for weak matches instead of silently overstating confidence.
+   - For Standard+ tasks, include a compact search audit. Load `references/search-audit.md`.
 
 ## Search Strategy
 
@@ -91,6 +106,8 @@ Use confidence labels:
 - Low: related background only; do not present as strong support.
 
 End with a "Could not verify" section for claims with no reliable match.
+
+For Deep or Audit tasks, include segment IDs in the table and a search audit summary.
 
 ## Limits
 
