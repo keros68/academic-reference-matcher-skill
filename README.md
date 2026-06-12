@@ -93,7 +93,7 @@ Use $academic-reference-matcher to find and verify scholarly references for this
 https://github.com/keros68/academic-reference-matcher-skill
 ```
 
-如果 agent 支持自动安装 GitHub skill，它会自己处理目录、下载和启用。安装后可以新开一个窗口测试：
+注意：GitHub 上开源并不等于本机已经安装。需要先让 agent 安装一次；如果 agent 支持自动安装 GitHub skill，它会自己处理目录、下载和启用。安装完成后请重启或新开一个窗口测试：
 
 ```text
 使用 $academic-reference-matcher 为下面这段话找参考文献，并输出 claim-reference 表。
@@ -227,7 +227,7 @@ Install this skill from GitHub and use it for scholarly reference matching, cita
 https://github.com/keros68/academic-reference-matcher-skill
 ```
 
-If your agent cannot install GitHub skills automatically, clone the repository into its skill directory or provide `SKILL.md` as instruction context.
+Publishing the repository does not install it locally. Install it once, then restart or open a new agent window. If your agent cannot install GitHub skills automatically, clone the repository into its skill directory or provide `SKILL.md` as instruction context.
 
 ## License
 
