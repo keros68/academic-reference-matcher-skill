@@ -1,107 +1,165 @@
 # Academic Reference Matcher Skill
 
-A portable agent skill for finding, verifying, replacing, and formatting scholarly references for academic claims.
+通用智能体文献匹配 Skill：把论文段落、学术 claim 或已有引用列表，转成可核验的文献匹配结果。
 
-The skill is intentionally tool-agnostic: it expects the host agent to use whatever web, browser, academic search, citation, PDF, or local-library tools it already has. The skill supplies the workflow and quality bar:
+> 中文为主，English version below.
 
-- identify citation-worthy claims;
-- assign stable segment IDs for multi-claim text;
-- plan claim-specific queries instead of using one broad query for everything;
-- route searches by field, source type, and evidence need;
-- use paywalled paper metadata for discovery without overstating support;
-- search scholarly sources instead of general summaries;
-- verify whether a candidate paper actually supports the claim;
-- produce a compact search audit for reproducibility;
-- format results as inline citations, reference lists, BibTeX/RIS, or claim-reference tables;
-- avoid invented citations and clearly mark unverified claims.
-- disclose weak matches, paywall limits, and search gaps.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-green.svg)](SKILL.md)
 
-## 中文介绍
+## 它解决什么问题
 
-Academic Reference Matcher 是一个通用的智能体技能，用于为学术文本查找、验证、替换和格式化参考文献。它不绑定特定平台或搜索 API，而是让宿主智能体使用自身已有的联网、浏览器、学术检索、PDF 或本地文献库能力。
+写论文、综述、基金、答辩材料或 rebuttal 时，最麻烦的常常不是“找几篇文献”，而是：
 
-这个 skill 重点解决这些问题：
+- 哪些句子真的需要引用？
+- 搜到的论文到底支不支持这句话？
+- 收费论文只能看到题名、关键词或摘要时，能不能先作为候选？
+- 多个 claim 怎么逐句对应参考文献？
+- 怎么避免 agent 编 DOI、编作者、编年份？
 
-- 识别段落中真正需要引用支撑的学术论断；
-- 为多 claim 文本建立稳定编号，方便逐句映射文献；
-- 针对每个 claim 设计检索式，而不是只用一个宽泛关键词；
-- 按学科、证据类型和来源可靠性选择检索源；
-- 正确使用收费论文的题名、关键词、摘要和 DOI 元数据进行候选发现，而不把 metadata-only 结果夸大成强支撑；
-- 优先检索论文、DOI、预印本、官方指南、数据集等可靠来源；
-- 判断候选文献是否真的支持原文 claim，而不是只匹配关键词；
-- 输出简洁的检索记录，说明查了哪里、怎么查、为什么采用或拒绝候选文献；
-- 按 APA、GB/T 7714、Vancouver、IEEE、BibTeX、RIS 等格式输出引用，并标明无法验证的内容。
-- 诚实说明弱匹配、付费墙、检索覆盖不足等限制。
+这个 skill 的目标不是下载论文，也不是绕过付费墙，而是提升 **文献检索、匹配、验证和输出** 的质量。
 
-## Search depth
+## 核心能力
 
-- `quick` - a few claims, fast support check, usually 3-5 strong references.
-- `standard` - default for paragraphs or short sections, with claim-reference mapping.
-- `deep` - long sections, review background, disputed topics, or broader coverage.
-- `audit` - systematic-review preparation or high-stakes work requiring a reproducible search log.
+- 识别需要引用支撑的学术论断。
+- 为多 claim 文本建立 `S001`、`S002` 等稳定编号。
+- 为每个 claim 设计独立检索式，避免一个宽泛关键词搜到底。
+- 按学科、证据类型和来源可靠性选择检索源。
+- 正确使用收费论文的题名、关键词、摘要、DOI 和出版社元数据做候选发现。
+- 区分 `Discovery-only`、`Abstract-supported`、`Snippet-supported`、`Fulltext-supported`、`Bibliographic-only` 等证据等级。
+- 输出 claim-to-reference 表、引用格式、检索记录和无法验证说明。
+- 支持 APA、GB/T 7714、Vancouver、IEEE、BibTeX、RIS 等格式。
 
-## Task modes
+## 不做什么
 
-- `add` - find citations for uncited claims.
-- `verify` - check whether existing citations really support the attached claims.
-- `replace` - find stronger or more accurate alternatives for weak or wrong citations.
-- `format` - convert known references to APA, GB/T 7714, Vancouver, IEEE, BibTeX, RIS, or another requested style.
-- `extract` - identify citation-worthy claims before searching.
+- 不自带搜索引擎或付费数据库账号。
+- 不下载或破解付费全文。
+- 不绕过验证码、登录墙、Cloudflare 或机构权限。
+- 不把 metadata-only 候选夸大成强支撑。
+- 不承诺穷尽所有文献，除非用户提供了限定数据库、检索式或文献库。
 
-## Use
+## 适用场景
 
-Install or copy this repository into any agent runtime that supports skills or agent instructions, then invoke:
+- 给 introduction、abstract、discussion 或 grant text 补引用。
+- 检查已有引用是否真的支持原文。
+- 替换弱引用、错引用、过时引用或撤稿文献。
+- 给中文论文段落匹配 GB/T 7714 参考文献。
+- 为综述或系统综述前期准备可复查的检索记录。
+- 把 DOI、BibTeX、RIS、Zotero/Mendeley 导出或用户 PDF 作为本地候选库来匹配 claim。
 
-```text
-Use $academic-reference-matcher to find and verify scholarly references for this paragraph.
-```
+## 检索深度
 
-For runtimes without a formal skill loader, point the agent at `SKILL.md`.
+| 深度 | 适用情况 | 输出侧重 |
+|---|---|---|
+| `quick` | 少量 claim，快速找 3-5 篇强相关文献 | 简短推荐与置信度 |
+| `standard` | 默认；段落或短小节补引用 | claim-reference 表 |
+| `deep` | 长文本、综述背景、争议主题 | 分段 ID、source routing、search audit |
+| `audit` | 系统综述准备或高风险稿件 | 可复查检索日志、限制说明、拒绝理由 |
 
-中文使用示例：
+## 任务模式
+
+| 模式 | 用途 |
+|---|---|
+| `add` | 给未引用的 claim 找文献 |
+| `verify` | 检查已有引用是否支撑对应 claim |
+| `replace` | 为弱引用或错误引用找更合适替代 |
+| `format` | 只格式化已知参考文献 |
+| `extract` | 只识别需要引用的 claim，暂不检索 |
+
+## 快速使用
+
+把仓库复制到支持 skills 或 agent instructions 的运行环境，然后调用：
 
 ```text
 使用 $academic-reference-matcher 为这段文字查找并验证学术参考文献。
 ```
 
-## Examples
+英文示例：
 
-See `examples/example-requests.md` for prompt patterns covering:
+```text
+Use $academic-reference-matcher to find and verify scholarly references for this paragraph.
+```
 
-- adding references to an English paragraph;
-- checking whether existing citations support a claim;
-- finding GB/T 7714 references for Chinese academic text;
-- planning deeper searches with segment IDs and source routing;
-- reporting no reliable match without inventing citations.
+如果你的 agent 没有正式的 skill loader，可以直接把 `SKILL.md` 作为系统说明或上下文提供给它。
 
-## Known limitations / 已知局限
+## 安装位置示例
 
-- The skill does not include its own search engine or paid database access. It depends on the host agent's available web, browser, scholarly database, PDF, or local-library tools.
-- It cannot guarantee exhaustive literature coverage unless the user provides a bounded corpus or a reproducible database search strategy.
-- Paywalled full text, missing abstracts, incomplete metadata, and rate limits can reduce verification quality.
-- It should not rely on unofficial Google Scholar scraping or CAPTCHA workarounds; use Scholar-like results only as discovery hints and verify against stable scholarly records.
-- Citation formatting may still need journal-specific polishing for edge cases such as consortium authors, translated titles, preprint-to-journal version matching, or Chinese-English mixed bibliographies.
+```bash
+# Claude Code
+git clone https://github.com/keros68/academic-reference-matcher-skill.git \
+  ~/.claude/skills/academic-reference-matcher
 
-中文说明：
+# Codex / cross-agent convention
+git clone https://github.com/keros68/academic-reference-matcher-skill.git \
+  ~/.agents/skills/academic-reference-matcher
 
-- 这个 skill 本身不自带搜索引擎，也不提供付费数据库权限，效果取决于宿主智能体能访问哪些工具和资料。
-- 如果没有限定数据库、检索式或文献库，它不能承诺“穷尽所有相关文献”。
-- 遇到付费墙、摘要缺失、元数据不完整或访问频率限制时，验证质量会下降。
-- 不建议依赖非官方 Google Scholar 抓取或绕过验证码；应回到 DOI、PubMed、arXiv、出版社、机构库等稳定记录核验。
-- 复杂期刊格式、团体作者、预印本与正式发表版本对应关系、中英文混排参考文献，可能仍需要人工终审。
+# 项目局部使用
+git clone https://github.com/keros68/academic-reference-matcher-skill.git \
+  ./.agents/skills/academic-reference-matcher
+```
 
-## Contents
+## 输出示例
 
-- `SKILL.md` - main skill instructions and trigger description
-- `references/search-sources.md` - source selection and query patterns
-- `references/query-planning.md` - claim segmentation and query construction
-- `references/source-routing.md` - field-specific source routing
-- `references/paywall-aware-access.md` - legal paywall-aware discovery and evidence-tier rules
-- `references/search-audit.md` - reproducible search log template
-- `references/verification-rubric.md` - relevance scoring rubric
-- `references/output-formats.md` - output contracts and citation style notes
-- `examples/example-requests.md` - practical request and output patterns
-- `agents/openai.yaml` - optional UI metadata for compatible runtimes
+对于多 claim 任务，skill 会倾向于输出这种结构：
+
+| Segment | Claim | Query families | Accepted reference | Evidence basis | Confidence | Notes |
+|---|---|---|---|---|---|---|
+| S001 | 原文 claim | 关键词组 / DOI / 来源路径 | Author et al., year, title, DOI | Abstract-supported | Medium | 全文未检查 |
+
+如果找不到可靠支撑，会明确说明：
+
+```text
+Could not verify:
+- Claim: ...
+  Checked: source and query summary
+  Best candidates rejected: title/year/why rejected
+  Reason: no direct scholarly support found / access unavailable / candidates only weakly related
+  Next step: ask user for bibliography/PDF/corpus or revise the claim
+```
+
+## 文件结构
+
+- `SKILL.md` - 主 skill 说明和触发描述。
+- `references/query-planning.md` - claim 拆分、检索式设计、query drift 检查。
+- `references/source-routing.md` - 按学科和证据需求选择检索源。
+- `references/paywall-aware-access.md` - 收费论文 metadata 的合法使用和证据等级。
+- `references/search-audit.md` - 可复查检索记录模板。
+- `references/search-sources.md` - 数据源选择和查询模式。
+- `references/verification-rubric.md` - 支撑关系评分规则。
+- `references/output-formats.md` - 输出格式和失败模板。
+- `examples/example-requests.md` - 常见请求模板。
+- `agents/openai.yaml` - 兼容运行时的 UI 元数据。
+
+## 已知局限
+
+- 检索质量取决于宿主 agent 能访问的搜索、浏览器、数据库、PDF 或本地文献库能力。
+- 付费墙、摘要缺失、元数据不完整和访问频率限制会降低验证质量。
+- 题名、关键词、引用量和索引元数据只能作为候选发现信号，不能证明强 claim。
+- 复杂期刊格式、团体作者、预印本与正式发表版本对应关系、中英文混排参考文献，仍可能需要人工终审。
+
+## English
+
+Academic Reference Matcher is a portable agent skill for matching scholarly references to academic claims. It helps an agent identify citation-worthy claims, plan better searches, route sources by evidence need, verify whether a candidate paper actually supports the claim, and format the result for academic writing.
+
+It is not a paper downloader and does not bypass paywalls. Paywalled metadata can be used for discovery and candidate ranking, but metadata-only visibility must not be overstated as strong support.
+
+### Main Features
+
+- Claim extraction and stable segment IDs.
+- Claim-specific query planning.
+- Field-aware source routing.
+- Paywall-aware evidence tiers.
+- Claim-to-reference mapping.
+- Support grading and search audit logs.
+- APA, GB/T 7714, Vancouver, IEEE, BibTeX, and RIS output.
+
+### Quick Start
+
+```text
+Use $academic-reference-matcher to find and verify scholarly references for this paragraph.
+```
+
+For runtimes without a formal skill loader, provide `SKILL.md` as agent instructions.
 
 ## License
 
