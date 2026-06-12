@@ -82,21 +82,72 @@ Use $academic-reference-matcher to find and verify scholarly references for this
 
 如果你的 agent 没有正式的 skill loader，可以直接把 `SKILL.md` 作为系统说明或上下文提供给它。
 
-## 安装位置示例
+## 安装方法
+
+### Claude Code
 
 ```bash
-# Claude Code
 git clone https://github.com/keros68/academic-reference-matcher-skill.git \
   ~/.claude/skills/academic-reference-matcher
+```
 
-# Codex / cross-agent convention
+然后新开一个 Claude Code 窗口，直接说：
+
+```text
+使用 $academic-reference-matcher 为下面这段话找参考文献，并输出 claim-reference 表。
+```
+
+### Codex / 通用 agent 目录
+
+```bash
 git clone https://github.com/keros68/academic-reference-matcher-skill.git \
   ~/.agents/skills/academic-reference-matcher
+```
 
-# 项目局部使用
+如果你的运行环境支持项目级 skills，也可以放到项目目录：
+
+```bash
 git clone https://github.com/keros68/academic-reference-matcher-skill.git \
   ./.agents/skills/academic-reference-matcher
 ```
+
+### 不支持 skill loader 的 agent
+
+把 `SKILL.md` 和需要的 `references/*.md` 作为上下文上传或粘贴给 agent。最小用法是只提供 `SKILL.md`；如果要做更严格的检索质量测试，再补充：
+
+- `references/query-planning.md`
+- `references/source-routing.md`
+- `references/verification-rubric.md`
+- `references/search-audit.md`
+- `references/paywall-aware-access.md`
+
+## 新窗口测试建议
+
+建议在一个新窗口或新线程里测试，这样更接近真实用户使用场景，避免当前开发上下文影响 agent。
+
+测试 prompt：
+
+```text
+使用 $academic-reference-matcher，按 standard depth 跑完整流程：
+1. 给下面段落拆分 Segment ID；
+2. 规划 query families；
+3. 查找并验证参考文献；
+4. 输出 claim-reference 表；
+5. 给出 suggested cited revision；
+6. 附 compact search audit；
+7. 不要编造 DOI、作者、年份；metadata-only 只能标 Discovery-only。
+
+段落：
+Conventional assessments usually identify exceedances using drinking-water limits or groundwater quality standards. This threshold-based approach is useful for rapid screening, but it does not explain why a given NO₃⁻ concentration occurs. The same concentration may represent a screened background state, external input disturbance, or a low-NO₃⁻ state modified by aquifer processes. In heterogeneous shallow groundwater systems, NO₃⁻ assessment therefore needs to move from exceedance judgement to status interpretation.
+```
+
+理想表现：
+
+- 能把文本拆成 `S001`、`S002` 等 claim。
+- 能区分 official standard、background value、source tracing、aquifer process 文献。
+- 能说明哪些引用是 High / Medium / Low。
+- 能指出 “status interpretation” 更像作者概念综合，而不是现成标准术语。
+- 能给出查了哪些来源、哪些候选被拒绝、有什么访问限制。
 
 ## 输出示例
 
@@ -160,6 +211,15 @@ Use $academic-reference-matcher to find and verify scholarly references for this
 ```
 
 For runtimes without a formal skill loader, provide `SKILL.md` as agent instructions.
+
+### Installation
+
+```bash
+git clone https://github.com/keros68/academic-reference-matcher-skill.git \
+  ~/.claude/skills/academic-reference-matcher
+```
+
+For generic agent runtimes, copy the repository into the runtime's skill directory or provide `SKILL.md` as instruction context.
 
 ## License
 
